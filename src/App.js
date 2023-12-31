@@ -1,23 +1,33 @@
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
-import Navbar from "./components/Navbar";
 import AddTask from "./components/AddTask";
-import Container from "./../node_modules/react-bootstrap/esm/Container";
 import { Row,Col } from "react-bootstrap";
+import SideBar from './components/sideBar';
 import TasksList from "./components/TasksList";
 
 function App() {
   return (
-    <Container>
-      <Navbar />
-      <Row className="justify-content-md-center">
-        <Col  lg="6">
-          <AddTask />
-          <TasksList/>
-        </Col>
-      </Row>
-    </Container>
-  );
+    <div className="container-fluid bg-body-secondary">
+    <div className="row">
+        
+      <SideBar></SideBar>
+      <div className="col" id="page-content-wrapper ">
+        <div className="container-fluid  " >
+          <div className="row ">
+            <div className="col-lg-12">
+                <Row>
+                  <Col lg="12">
+                      <AddTask></AddTask>
+                      <TasksList></TasksList>
+                  </Col>
+                </Row>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+      );
 }
 
 export default App;

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
+import { TaskContext } from "../context/taskContext";
+import Card from 'react-bootstrap/Card';
 const AddTask = () => {
 
-    
+    const {dispatch} = useContext(TaskContext);
 
     const [title,setTitle] = useState('')
     const [description,setDescription] = useState('')
@@ -12,29 +13,44 @@ const AddTask = () => {
 
     const addTask = (e) => {
         e.preventDefault()
-        console.log({title,description})
+        dispatch({type:'ADD_TASK', payload:{title,description}})
+        setTitle('');
+        setDescription('');
     }
   return (
-    <section className="my-5">
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Task Title</Form.Label>
-        <Form.Control type="text" placeholder="Enter Task Title" value={title}
-         onChange={(e) => setTitle(e.target.value)}/>
-      </Form.Group>
+    <Card className='mt-5 shadow-sm p-3 mb-5 bg-white rounded-5'>
+    <Card.Body>
+            <h1>Add a Note</h1>
+        <Form>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Control
+                    type="text"
+                    className='border-0 fs-3' // Apply custom class here
+                    placeholder="Title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+            </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Task Description</Form.Label>
-        <Form.Control type="text" placeholder="Enter Task Description" value={description}
-        onChange={(e) => setDescription(e.target.value)}/>
-      </Form.Group>
-      <div className="text-end">
-        <Button variant="primary" type="submit" onClick={(e) =>addTask(e)}>
-          Add Task
-        </Button>
-      </div>
-    </Form>
-    </section>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Control
+                    as="textarea"
+                    className='border-0' // Apply custom class here
+                    rows={5}
+                    value={description}
+                    placeholder="Take a note.."
+                    onChange={(e) => setDescription(e.target.value)}
+                />
+            </Form.Group>
+
+            <div className="text-end">
+                <Button variant="secondary" type="submit" onClick={(e) => addTask(e)}>
+                      <i class="bi bi-plus-square-fill"></i> Add Note
+                </Button>
+            </div>
+        </Form>
+    </Card.Body>
+</Card>
   );
 };
 
